@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in articles %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <img class="rounded-circle article-img" src="{{user.profiles.img.url}}">
+                <a class="mr-2" href="{% url 'blog.user' post.author.username %}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted}}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'blog.detail' post.id %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
+    {% endfor %}
+    
+    {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info" href="?page=1">First Page</a>
+        <a class="btn btn-outline-info" href="?page={{page_obj.previous_page_number}}">Previous</a>
+    {% endif %}
+
+
+    {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">{{ page_obj.next_page_number }}</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"class="btn btn-outline-info">last Page &raquo;</a>
+
+    {% endif %}
+    {% endif %}
+
+{% endblock %}
