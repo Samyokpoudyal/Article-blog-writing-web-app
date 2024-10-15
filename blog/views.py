@@ -14,7 +14,7 @@ class Blog_list_view(ListView):
     template_name='blog/home.html'
     context_object_name='articles'
     ordering=['-date_posted']
-    paginate_by=5
+    paginate_by=2
 
 class UserBlog_list_view(ListView):
     model=Articles
